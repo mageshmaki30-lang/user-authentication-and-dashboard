@@ -22,7 +22,9 @@ import {
   TrendingUp,
   DollarSign,
   Package,
-  Zap
+  Zap,
+  UtensilsCrossed,
+  Heart
 } from "lucide-react"
 
 export default function Home() {
@@ -80,6 +82,8 @@ export default function Home() {
       localStorage.setItem("isAuthenticated", "true")
       localStorage.setItem("userEmail", loginEmail)
       localStorage.setItem("userName", loginEmail.split("@")[0])
+      localStorage.setItem("userID", "EMP" + Math.floor(Math.random() * 1000))
+      localStorage.setItem("userRole", "employee")
       setUser({ 
         name: loginEmail.split("@")[0], 
         email: loginEmail 
@@ -124,6 +128,8 @@ export default function Home() {
       localStorage.setItem("isAuthenticated", "true")
       localStorage.setItem("userEmail", registerEmail)
       localStorage.setItem("userName", registerName)
+      localStorage.setItem("userID", "EMP" + Math.floor(Math.random() * 1000))
+      localStorage.setItem("userRole", "employee")
       setUser({ name: registerName, email: registerEmail })
       setIsAuthenticated(true)
       setIsRegisterLoading(false)
@@ -134,6 +140,8 @@ export default function Home() {
     localStorage.removeItem("isAuthenticated")
     localStorage.removeItem("userName")
     localStorage.removeItem("userEmail")
+    localStorage.removeItem("userID")
+    localStorage.removeItem("userRole")
     setIsAuthenticated(false)
     setUser(null)
     setLoginEmail("")
@@ -202,6 +210,16 @@ export default function Home() {
               <h1 className="text-xl font-bold">Dashboard</h1>
             </div>
             <div className="flex items-center gap-4">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => router.push("/canteen")}
+                className="gap-2"
+              >
+                <UtensilsCrossed className="h-4 w-4" />
+                <span className="hidden sm:inline">Canteen</span>
+                <Heart className="h-3 w-3 text-red-500 fill-red-500 animate-pulse" />
+              </Button>
               <Button variant="ghost" size="icon">
                 <Settings className="h-5 w-5" />
               </Button>
@@ -303,6 +321,15 @@ export default function Home() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-2">
+                <Button 
+                  className="w-full justify-start gap-2" 
+                  variant="outline"
+                  onClick={() => router.push("/canteen")}
+                >
+                  <UtensilsCrossed className="h-4 w-4" />
+                  Order from Canteen
+                  <Heart className="h-3 w-3 text-red-500 fill-red-500 ml-auto animate-pulse" />
+                </Button>
                 <Button className="w-full justify-start" variant="outline">
                   <Users className="h-4 w-4 mr-2" />
                   Manage Users
